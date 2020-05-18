@@ -1,5 +1,16 @@
 import axios from "axios";
+import { memoize } from "lodash";
 
-export default axios.create({
+const api = axios.create({
   baseURL: "https://jsonplaceholder.typicode.com",
 });
+
+export default {
+  getPosts: async () => {
+    return api.get("/posts");
+  },
+
+  getUser: memoize(async (id) => {
+    return api.get(`/users/${id}`);
+  }),
+};
